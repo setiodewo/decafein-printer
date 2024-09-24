@@ -12,6 +12,14 @@ app.use(cors());
 const bodyParser = require('body-parser');
 app.use(bodyParser.text());
 
+const token_check = function(req, res, next) {
+    if (req.headers.token == config.token) {
+        next();
+    } else {
+        res.status(401).send('Not authorized!');
+    }
+}
+
 const { ThermalPrinter, PrinterTypes } = require('node-thermal-printer');
 let printer = new ThermalPrinter({
     type: PrinterTypes.EPSON,
@@ -27,7 +35,7 @@ app.get('/', (req, res) => {
     res.send(config.appName);
 });
 
-app.post('/', async(req, res) => {
+app.post('/', token_check, async(req, res) => {
     await printer.raw(Buffer.from(req.body));
     res.send('OK');
 })

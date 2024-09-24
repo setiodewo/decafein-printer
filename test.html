@@ -16,6 +16,13 @@ function printin() {
             token: 'decafein20240924!'
         },
         body: txt
-    });
+    }).then(async(t) => {
+        if (t.status == 200) return await t.text();
+        else throw await t.text();
+    }).then(result => {
+        console.log(result);
+    }).catch(err => {
+        alert(err);
+    })
 }
 </script>
