@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', token_check, async(req, res) => {
-    await printer.raw(Buffer.from(req.body));
+    printer.raw(Buffer.from(req.body));
     res.send('OK');
 })
 
