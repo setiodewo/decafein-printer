@@ -1,0 +1,21 @@
+<button type="button" onclick="printin()">Test Print</button>
+
+<script>
+
+const _reset = "\x1B@";
+const _center = "\x1Ba\x01";
+const _left = "\x1Ba\x00";
+const _big = "\x1D!\x01";
+const _normal = "\x1D!\x00";
+
+function printin() {
+    let txt = `${_big}${_center}Axel Stone Cafe${_normal}\n\n\n`;
+    fetch('http://localhost:4001', {
+        method: 'POST',
+        headers: {
+            token: 'decafein20240924!'
+        },
+        body: txt
+    });
+}
+</script>
